@@ -1,0 +1,16 @@
+{
+  "name": "node-calibre-api",
+  "version": "0.0.1",
+  "author": "denouche",
+  "dependencies": {
+    "body-parser": "~1.13.1",
+    "ebook-convert": "^0.1.0",
+    "errorhandler": "~1.4.0",
+    "express": "~4.13.0",
+    "lodash": "^3.10.0",
+    "multiparty": "^4.1.2",
+    "q": "~1.4.1",
+    "request": "~2.60.0",
+    "require-dir": "~0.3.0"
+  }
+}
