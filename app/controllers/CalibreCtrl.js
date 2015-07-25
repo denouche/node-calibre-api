@@ -10,11 +10,11 @@ var multiparty = require('multiparty'),
 module.exports.ebookConvert = function (req, res) {
     var form = new multiparty.Form();
     form.parse(req, function(err, fields, files) {
-        var body = JSON.parse(fields.body[0]);
+        var toFormat = fields.to[0];
 
         var fileToConvert = files.file[0],
-            newFilename = path.basename(fileToConvert.originalFilename, path.extname(fileToConvert.originalFilename)) + '.' + body.to,
-            newFilePath = fileToConvert.path.substring(0, fileToConvert.path.length - path.extname(fileToConvert.path).length) + '.' + body.to;
+            newFilename = path.basename(fileToConvert.originalFilename, path.extname(fileToConvert.originalFilename)) + '.' + toFormat,
+            newFilePath = fileToConvert.path.substring(0, fileToConvert.path.length - path.extname(fileToConvert.path).length) + '.' + toFormat;
 
         CalibreService.ebookConvert(fileToConvert.path, newFilePath)
             .then(function(){
