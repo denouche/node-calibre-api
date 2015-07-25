@@ -38,11 +38,10 @@ ENV PATH $PATH:/home/$USER/tools/node-v$NODE_VERSION-linux-x64/bin
 # Get project
 ENV PROJECT_DIRECTORY node-calibre-api
 RUN cd \
-    && mkdir www \
-    && cd www \
-    && git clone https://github.com/denouche/node-calibre-api.git $PROJECT_DIRECTORY \
-    && cd $PROJECT_DIRECTORY \
-    && npm install
+    && mkdir -p www/$PROJECT_DIRECTORY/ \
+    && cd www/$PROJECT_DIRECTORY \
+    && git init \
+    && git remote add origin https://github.com/denouche/node-calibre-api.git
 
 # set env
 ENV NODE_ENV production
@@ -53,6 +52,6 @@ EXPOSE 3000
 WORKDIR /home/$USER/www/$PROJECT_DIRECTORY
 
 # update project at every container start
-CMD git pull && node app.js
+CMD git pull origin master && npm install && node app.js
 
 
