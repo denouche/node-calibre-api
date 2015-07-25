@@ -17,6 +17,10 @@ Or by building the image using the Dockerfile.
 
 Then to convert a .epub ebook to .mobi, use:
 ```
-curl 'http://localhost:3000/calibre/ebook-convert' -H 'Content-Type: multipart/form-data' --form 'file=@/tmp/file.epub' --form 'to=mobi' -O -J -L -s
+curl -O -J -L -s \
+    -H 'Content-Type: multipart/form-data' \
+    --form 'file=@/tmp/file.epub' \
+    --form 'to=mobi' \
+    'http://localhost:3000/calibre/ebook-convert'
 ```
 
