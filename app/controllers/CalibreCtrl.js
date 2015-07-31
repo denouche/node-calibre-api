@@ -20,6 +20,8 @@ module.exports.ebookConvert = function (req, res) {
             .then(function(){
                 console.log('did it!, the epub exists!')
                 res.download(newFilePath, newFilename);
+            }, function(err) {
+                res.status(500).send({error: 'Error while converting file', trace: err});
             });
     });
 };
