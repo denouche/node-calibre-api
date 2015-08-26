@@ -6,8 +6,10 @@ var multiparty = require('multiparty'),
     _ = require('lodash'),
     CalibreService = require('../services/calibre');
 
+var conversionTimeout = 10 * 60 * 1000;
 
 module.exports.ebookConvert = function (req, res) {
+    res.setTimeout(conversionTimeout);
     var form = new multiparty.Form();
     form.parse(req, function(err, fields, files) {
         var toFormat = fields.to[0];
