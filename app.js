@@ -5,7 +5,8 @@ var path = require('path'),
     webApp = express(),
     apiApp = require('./app/api'),
     logger = require('util'),
-    errorhandler = require('errorhandler');
+    errorhandler = require('errorhandler'),
+    debug = require('debug')('calibre-api:app');
     
 webApp.set('port', process.env.PORT || 3000);
 webApp.use(apiApp);
@@ -20,5 +21,5 @@ else if ('development' == env) {
 
 
 webApp.listen(webApp.get('port'), '0.0.0.0');
-logger.log("Started in " + webApp.settings.env + " on port " + webApp.get('port'));
+debug("Started in " + webApp.settings.env + " on port " + webApp.get('port'));
 
