@@ -1,23 +1,24 @@
-var q = require('q'),
-    exec = require('child_process').exec,
+var exec = require('child_process').exec,
     logger = require('util'),
-    request = require('request');
+    request = require('request'),
+    debug = require('debug')('calibre-api:service');
 
 function executeCommand (command) {
-    var deferred = q.defer();
-    logger.log("WILL EXECUTE: " + command);
-    var child = exec(command, function (error, stdout, stderr) {
-        if (error !== null) {
-            console.error(error);
-            console.error(stderr);
-            console.error(stdout);
-            deferred.reject(stderr);
-        }
-        else {
-            deferred.resolve(stdout);
-        }
+    return new Promise(function(resolve, reject) {
+        debug("will execute", command);
+        var child = exec(command, function (error, stdout, stderr) {
+            if (error !== null) {
+                debug('Error after command executed:');
+                debug(error);
+                debug(stderr);
+                debug(stdout);
+                reject(stderr);
+            }
+            else {
+                resolve(stdout);
+            }
+        });
     });
-    return deferred.promise;
 }
 
 function ebookConvert (path, pathTo) {

@@ -21,7 +21,7 @@ RUN sudo -v && wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre
 
 # Install nodejs
 ENV USER nodejs
-ENV NODE_VERSION 0.12.7
+ENV NODE_VERSION 6.9.5
 
 RUN useradd --create-home --shell /bin/bash $USER
 
@@ -52,6 +52,6 @@ EXPOSE 3000
 WORKDIR /home/$USER/www/$PROJECT_DIRECTORY
 
 # update project at every container start
-CMD git pull origin master && npm install && node app.js
+CMD git pull origin master && npm install && npm start
 
 
