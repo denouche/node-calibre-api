@@ -52,6 +52,6 @@ EXPOSE 3000
 WORKDIR /home/$USER/www/$PROJECT_DIRECTORY
 
 # update project at every container start
-CMD git pull origin master && npm install && node app.js
+CMD git pull origin master && npm install && npm start
 
 
