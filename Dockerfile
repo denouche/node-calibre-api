@@ -41,7 +41,7 @@ RUN cd \
     && mkdir -p www/$PROJECT_DIRECTORY/ \
     && cd www/$PROJECT_DIRECTORY \
     && git init \
-    && git remote add origin https://github.com/denouche/node-calibre-api.git
+    && git remote add origin https://github.com/1pedro/node-calibre-api.git
 
 # set env
 ENV NODE_ENV production

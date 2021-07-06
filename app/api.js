@@ -1,12 +1,14 @@
 'use strict';
 
-var express = require('express'),
-    apiApp = express(),
-    requireDir = require('require-dir'),
-    logger = require('util'),
-    bodyParser = require('body-parser'),
-    debug = require('debug')('calibre-api:api');
+const express = require('express');
+const cors = require('cors');
+const apiApp = express();
+const requireDir = require('require-dir');
+const logger = require('util');
+const bodyParser = require('body-parser');
+const debug = require('debug')('calibre-api:api');
 
+apiApp.use(cors());
 apiApp.use(bodyParser.json());
 
 apiApp.all('/*', function (req, res, next) {
