@@ -8,7 +8,7 @@ const logger = require('util');
 const errorhandler = require('errorhandler');
 const debug = require('debug')('calibre-api:app');
 
-webApp.set('port', process.env.PORT || 300);
+webApp.set('port', process.env.PORT || 3000);
 webApp.use(apiApp);
 
 var env = process.env.NODE_ENV || 'development';
