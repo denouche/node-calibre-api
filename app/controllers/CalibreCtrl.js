@@ -10,6 +10,9 @@ var conversionTimeout = 10 * 60 * 1000;
 module.exports.ebookConvert = function (req, res) {
     res.setTimeout(conversionTimeout);
     var form = new multiparty.Form();
+    debug('request.body', JSON.stringify(req.body));
+    debug('form', form);
+    debug('json.stringify(form)', JSON.stringify(form));
     form.parse(req, function(err, fields, files) {
         if(!fields.to || fields.to.length !== 1) {
             res.status(400).send({error: 'Error: Missing "to" field in the form. The "to" field must be set to the output file extension wanted'});

@@ -1,12 +1,12 @@
 'use strict';
 
-var path = require('path');
-const express = require('express');
-const webApp = express();
-const apiApp = require('./app/api');
-const logger = require('util');
-const errorhandler = require('errorhandler');
-const debug = require('debug')('calibre-api:app');
+var path = require('path'),
+ express = require('express'),
+ webApp = express(),
+ apiApp = require('./app/api'),
+ logger = require('util'),
+ errorhandler = require('errorhandler'),
+ debug = require('debug')('calibre-api:app');
 
 webApp.set('port', process.env.PORT || 3000);
 webApp.use(apiApp);

@@ -1,15 +1,19 @@
 'use strict';
 
-const express = require('express');
-const cors = require('cors');
-const apiApp = express();
-const requireDir = require('require-dir');
-const logger = require('util');
-const bodyParser = require('body-parser');
-const debug = require('debug')('calibre-api:api');
+ var express = require('express'),
+     cors = require('cors'),
+     apiApp = express(),
+     requireDir = require('require-dir'),
+     logger = require('util'),
+     bodyParser = require('body-parser'),
+     debug = require('debug')('calibre-api:api');
 
 apiApp.use(cors());
-apiApp.use(bodyParser.json());
+apiApp.use(bodyParser.json({
+    parameterLimit: 100000,
+    limit: '50mb',
+    extended: true
+}));
 
 apiApp.all('/*', function (req, res, next) {
     debug(req.method + ' ' + req.url);
