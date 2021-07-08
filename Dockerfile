@@ -5,7 +5,7 @@ RUN apt-get update \
     && apt-get install -y \
         python \
         wget \
-        gcc \
+        gcc-4.9 \
         xz-utils \
         imagemagick \
         xdg-utils \
