@@ -19,6 +19,8 @@ module.exports.ebookConvert = function (req, res) {
 
         debug('fields json', JSON.stringify(fields))
         debug('files json', JSON.stringify(files))
+
+        debug('files json', JSON.stringify(files))
         if(!fields.to || fields.to.length !== 1) {
             res.status(400).send({error: 'Error: Missing "to" field in the form. The "to" field must be set to the output file extension wanted'});
             return;
