@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:21.04
 
 # Install calibre deps and then nodejs deps
 RUN apt-get update \
@@ -22,7 +22,7 @@ RUN sudo -v && wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre
 
 # Install nodejs
 ENV USER nodejs
-ENV NODE_VERSION 6.9.5
+ENV NODE_VERSION 14.17.0
 
 RUN useradd --create-home --shell /bin/bash $USER
 
