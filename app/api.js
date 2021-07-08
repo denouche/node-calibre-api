@@ -1,12 +1,12 @@
 'use strict';
 
- var express = require('express'),
-     cors = require('cors'),
-     apiApp = express(),
-     requireDir = require('require-dir'),
-     logger = require('util'),
-     bodyParser = require('body-parser'),
-     debug = require('debug')('calibre-api:api');
+const express = require('express');
+const cors = require('cors');
+const  apiApp = express();
+const requireDir = require('require-dir');
+const logger = require('util');
+const bodyParser = require('body-parser');
+const debug = require('debug')('calibre-api:api');
 
 apiApp.use(cors());
 apiApp.use(bodyParser.json({
@@ -33,9 +33,9 @@ apiApp.use(function(err, req, res, next) {
 
 
 
-var routes = requireDir(__dirname + '/routes', {recurse: true});
+const routes = requireDir(__dirname + '/routes', {recurse: true});
 
-for(var route in routes) {
+for(const route in routes) {
     routes[route](apiApp);
 }
 
