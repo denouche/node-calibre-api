@@ -1,14 +1,15 @@
-FROM ubuntu:14.04.2
+FROM ubuntu:16.04
 
 # Install calibre deps and then nodejs deps
 RUN apt-get update \
     && apt-get install -y \
         python \
         wget \
-        gcc-4.9 \
+        gcc \
         xz-utils \
         imagemagick \
         xdg-utils \
+	sudo \
     && apt-get install -y \
         build-essential \
         curl \
