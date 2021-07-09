@@ -1,15 +1,31 @@
 'use strict';
 
-var multiparty = require('multiparty'),
-    path = require('path'),
-    CalibreService = require('../services/calibre'),
-    debug = require('debug')('calibre-api:controller');
+const multiparty = require('multiparty');
+const path = require('path');
+const CalibreService = require('../services/calibre');
+const debug = require('debug')('calibre-api:controller');
+const basedBlob = require('based-blob');
+const fs = require('fs');
+const fetch =  require('node-fetch');
+const conversionTimeout = 10 * 60 * 1000;
 
-var conversionTimeout = 10 * 60 * 1000;
+const { makeId } = require('../modules/helpers');
+
+
+const saveFile = (fullPath, content, type='base64') => {
+
+    const data = content.includes('data:application/epub+zip;base64,') ? content.split('data:application/epub+zip;base64,')[1]: content;
+    fs.writeFile(fullPath, data, type, function(err) {
+        if(err) {
+            console.log(err);
+            throw new Error(err.message);
+        }
+    });
+}
 
 module.exports.ebookConvert = function (req, res) {
     res.setTimeout(conversionTimeout);
-    var form = new multiparty.Form();
+    const form = new multiparty.Form();
     debug('request.body', JSON.stringify(req.body));
     debug('form', form);
     debug('json.stringify(form)', JSON.stringify(form));
@@ -30,15 +46,19 @@ module.exports.ebookConvert = function (req, res) {
             return;
         }
 
-        var toFormat = fields.to[0];
+        const extension = fields.to[0];
 
-        var fileToConvert = files.file[0],
-            newFilename = path.basename(fileToConvert.originalFilename, path.extname(fileToConvert.originalFilename)) + '.' + toFormat,
-            newFilePath = fileToConvert.path.substring(0, fileToConvert.path.length - path.extname(fileToConvert.path).length) + '.' + toFormat;
+        const fileToConvert = files.file[0];
+//        debug(fileToConvert);
+//        debug(typeof fileToConvert)
+        const newFilename = path.basename(fileToConvert.originalFilename, path.extname(fileToConvert.originalFilename)) + '.' + extension;
+        const newFilePath = fileToConvert.path.substring(0, fileToConvert.path.length - path.extname(fileToConvert.path).length) + '.' + extension;
+
+//        debug('fileToConvert.path', fileToConvert.path)
 
         CalibreService.ebookConvert(fileToConvert.path, newFilePath)
             .then(function(){
-                debug('did it!, the epub exists!')
+                debug(`did it!, the ${extension} exists!`)
                 res.download(newFilePath, newFilename);
             }, function(err) {
                 res.status(500).send({error: 'Error while converting file', trace: err});
@@ -46,3 +66,38 @@ module.exports.ebookConvert = function (req, res) {
     });
 };
 	
+
+
+module.exports.ebookConvertBase64 = function (req, res) {
+    const { body } = req;
+    const {bookContent, bookName, to} = body;
+    let blob;
+
+    if(!bookContent || !bookName) {
+        throw new Error('No bookContent nor bookName');
+    }
+
+    if(typeof bookContent !== 'string'){
+        throw new Error(`Can't read bookContent expecting string. ${typeof bookContent} instead `);
+    }
+
+    try{
+        const [originalName, ext] = bookName.split('.');
+        const fromPath = `/tmp/${makeId(12)}.${ext}`
+        const toPath = `/tmp/${makeId(12)}.${to}`;
+
+        saveFile(fromPath, bookContent);
+
+        CalibreService.ebookConvert(fromPath, toPath)
+          .then(function(){
+              debug(`did it!, the ${to} exists!`)
+              res.download(toPath, `${originalName}.${to}`);
+          }, function(err) {
+              res.status(500).send({error: 'Error while converting file', trace: err});
+          });
+
+    }catch(error) {
+        throw new Error('Cant parse bookContent to Blob: ' + error.message);
+    }
+
+};

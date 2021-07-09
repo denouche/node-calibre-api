@@ -2,7 +2,7 @@
 
 const express = require('express');
 const cors = require('cors');
-const  apiApp = express();
+const apiApp = express();
 const requireDir = require('require-dir');
 const logger = require('util');
 const bodyParser = require('body-parser');

@@ -10,7 +10,7 @@ module.exports.monitoring = function (req, res) {
     try{
 
     res.send(healthCheck).end();
-    }catch(error) {
+    } catch (error) {
         healthCheck.message = error.message;
         res.status(500).send(healthCheck);
     }

@@ -1,12 +1,12 @@
-var exec = require('child_process').exec,
-    logger = require('util'),
-    request = require('request'),
-    debug = require('debug')('calibre-api:service');
+const exec = require('child_process').exec;
+const logger = require('util');
+const request = require('request');
+const debug = require('debug')('calibre-api:service');
 
 function executeCommand (command) {
     return new Promise(function(resolve, reject) {
         debug("will execute", command);
-        var child = exec(command, function (error, stdout, stderr) {
+        const child = exec(command, function (error, stdout, stderr) {
             if (error !== null) {
                 debug('Error after command executed:');
                 debug(error);
