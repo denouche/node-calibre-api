@@ -9,6 +9,8 @@ RUN apt-get update \
         xz-utils \
         imagemagick \
         xdg-utils \
+        libnss3-dev \
+        libxdamage-dev \
 	sudo \
     && apt-get install -y \
         build-essential \
