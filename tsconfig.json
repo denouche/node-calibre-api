@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "newLine": "lf",
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "pretty": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "esnext",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "outDir": "build",
+    "paths": {
+      "*": ["src/*"],
+      "assets/*": ["assets/*"],
+      "test/*": ["test/*"],
+      "test-utils": ["test/__setup__/test-utils"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "test", "build"]
+}
