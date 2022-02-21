@@ -21,5 +21,7 @@ function executeCommand(command: string) {
 
 // eslint-disable-next-line import/prefer-default-export
 export function ebookConvert(path: string, pathTo: string) {
-  return executeCommand(`ebook-convert ${path} ${pathTo}`);
+  return executeCommand(
+    `QTWEBENGINE_CHROMIUM_FLAGS="--no-sandbox" ebook-convert ${path} ${pathTo}`,
+  );
 }
